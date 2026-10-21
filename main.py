@@ -1,3 +1,4 @@
+from posix import kill
 import sys
 
 import pygame
@@ -37,6 +38,12 @@ def main():
         updatable.update(dt)
 
         for obj in asteroids:
+            for sh in shots:
+                if sh.collides_with(obj):
+                    log_event("asteroid_shot")
+                    obj.kill()
+                    sh.kill()
+
             if obj.collides_with(player1):
                 log_event("player_hit")
                 print("Game over!")
